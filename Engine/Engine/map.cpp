@@ -40,3 +40,5 @@ void Map::add_unit(Unit u, int x, int y) {
 	UnitCoords g(x, y, u);
 	units.push_back(g);
 }
+
+Map::Map() {}

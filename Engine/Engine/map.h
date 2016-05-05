@@ -35,6 +35,7 @@ public:
 	int map_x() { return map_width; }
 	int map_y() { return map_height; }
 	Map(char * map_name);
+	Map();
 	void add_unit(Unit u, int x, int y);
 };
 

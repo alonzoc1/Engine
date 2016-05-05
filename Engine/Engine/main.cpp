@@ -138,10 +138,13 @@ int main(int argc, char ** argv){
 		zombie.set_cur_health(8);
 		zombie.set_max_health(22);
 		zombie.set_faction(1);
+
+
 	}
 	if (selection == 2) {
 		//load a save file
 		selection = (selection + 1 - 1); //pass for now
 	}
+	al_destroy_timer(timer);
 	return 0;
 }

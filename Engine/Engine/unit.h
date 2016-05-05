@@ -21,6 +21,7 @@ private:
 	//Unit misc data
 	bool male;
 	int faction; //0 = player, 1 = enemy, 3 = ally?
+	char * sprite_path;
 	//End unit misc data
 public:
 	//gets
@@ -43,6 +44,7 @@ public:
 		else
 			return 0;
 	}
+	void set_sprite_path(char * path) { sprite_path = path; }
 	//end sets
 
 	Unit(int id, char * name) {

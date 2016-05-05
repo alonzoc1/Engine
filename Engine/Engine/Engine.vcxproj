@@ -23,6 +23,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_menu.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="map_gui.cpp" />
     <ClCompile Include="screen.cpp" />
   </ItemGroup>
   <ItemGroup>
