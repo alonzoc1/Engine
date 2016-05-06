@@ -17,6 +17,7 @@ private:
 	void fill_tiles();
 	void place_units();
 
+	int unique_tiles = 2; //how many unique different types of tiles there are (in existance, not just this map) HARDCODED
 	int show_x; // how many tiles at once horizontally
 	int show_y; // ^^^
 	int tile_width =  75; //how many pixels is a tile (its always a square)

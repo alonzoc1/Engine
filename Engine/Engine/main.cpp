@@ -149,6 +149,7 @@ int main(int argc, char ** argv){
 		MapGui map_gui(map, em2, width, height, 0, 0);
 		map_gui.display_map(2);
 		al_destroy_timer(timer2);
+		al_rest(10);
 	}
 	if (selection == 2) {
 		//load a save file

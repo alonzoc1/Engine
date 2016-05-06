@@ -2,10 +2,13 @@
 
 
 Map::Map(char * map_name) {
+	string strung = map_name;
+	printf("strung is %s\n", map_name);
 	int tally_x = 0;
 	int tally_y = 0;
-	string path = "map/";
-	path += map_name;
+	string path = "maps/";
+	path.append(strung);
+	printf("path is %s\n", path);//DEBUG
 	fstream map_file(path);
 	string line;
 	bool first = true;
@@ -31,7 +34,7 @@ Map::Map(char * map_name) {
 		//error opening map
 		1; //pass
 	}
-
+	printf("tally_x is %i and tally_y is %i\n", tally_x, tally_y);//DEBUG
 	map_width = tally_x;
 	map_height = tally_y;
 }

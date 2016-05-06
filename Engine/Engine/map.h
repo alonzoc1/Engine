@@ -34,6 +34,7 @@ private:
 public:
 	int map_x() { return map_width; }
 	int map_y() { return map_height; }
+	vector<int> get_row_number(int i) { return tiles[i]; }
 	Map(char * map_name);
 	Map();
 	void add_unit(Unit u, int x, int y);

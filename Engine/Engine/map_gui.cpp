@@ -9,6 +9,7 @@ MapGui::MapGui(Map m_in, EventManager em_in, int res_x, int res_y, int camx, int
 	max_y = m_in.map_y();
 	cam_x = camx;
 	cam_y = camy;
+	printf("max_x is %i, max_y is %i\n", max_x, max_y);//DEBUG
 }
 
 MapGui::~MapGui() {
@@ -17,8 +18,8 @@ MapGui::~MapGui() {
 }
 
 int MapGui::display_map(int thick) {
-	draw_grid(thick);
 	fill_tiles();
+	draw_grid(thick);
 	place_units();
 	return 1;
 }
@@ -28,26 +29,72 @@ void MapGui::start_game() {
 }
 
 void MapGui::draw_grid(int thick) {
-	int ticker = cam_x;
+	printf("map is %i tiles wide and %i tiles tall\n", max_x, max_y); //DEBUG
+	int ticker = 0;
 	int thickness = thick;
 	int cur_x = 0;
 	int cur_y = 0;
-	al_clear_to_color(al_map_rgb(0, 0, 0)); //DO NOT CLEAR COLOR AGAIN, draw_grid DOES IT
-	while (ticker <= show_x) {
-		al_draw_line(cur_x, 0, cur_x, (show_y*tile_width), al_map_rgb(128,128,128), thick);
-		ticker++;
-		cur_x += 75;
-	}
-	ticker = 0;
-	while (ticker <= show_y) {
-		al_draw_line(0, cur_y, (show_x*tile_width), cur_y, al_map_rgb(128, 128, 128), thick);
+	int temp;
+	if (show_x < max_x)
+		temp = show_x;
+	else
+		temp = max_x;
+	while ((ticker <= show_y) && (ticker <= max_y)) {
+		al_draw_line(0, cur_y, (temp*tile_width), cur_y, al_map_rgb(128, 128, 128), thick);
 		ticker++;
 		cur_y += 75;
+	}
+	ticker = cam_x;
+	cur_y -= 75;
+	while ((ticker <= show_x) && (ticker <= max_x)) {
+		al_draw_line(cur_x, 0, cur_x, (cur_y), al_map_rgb(128,128,128), thick);
+		ticker++;
+		cur_x += 75;
 	}
 }
 
 void MapGui::fill_tiles() {
-
+	al_clear_to_color(al_map_rgb(0, 0, 0)); //DO NOT CLEAR COLOR AGAIN, THIS DOES IT
+	ALLEGRO_BITMAP ** tiles;
+	tiles = new ALLEGRO_BITMAP*[unique_tiles];
+	int i = 0;
+	while (i < unique_tiles) {
+		tiles[i] = NULL;
+		i++;
+	}
+	int cur_x = 0;
+	int cur_y = 0;
+	int temp;
+	int ticker = cam_x;
+	if (show_x < max_x)
+		temp = show_x;
+	else
+		temp = max_x;
+	while ((ticker <= show_y) && (ticker <= max_y)) {
+		int ticker2 = cam_y;
+		printf("ticker = %i\n", ticker);//DEBUG
+		vector<int> row = m.get_row_number(ticker);
+		while ((ticker2 <= show_x) && (ticker <= max_x)) {
+			printf("ticker2 = %i\n", ticker2);//DEBUG
+			int tile_id = row[ticker2];
+			if (tiles[tile_id - 1] == NULL) { //initialize tile
+				switch (tile_id) {
+				case 1:
+					tiles[tile_id - 1] = al_load_bitmap("tiles/grass.png");
+					break;
+				case2:
+					tiles[tile_id - 1] = al_load_bitmap("tiles/mountaint.png");
+					break;
+				}
+			}
+			al_draw_bitmap(tiles[tile_id-1],cur_x, cur_y,0);
+			cur_x += 75;
+			ticker2++;
+		}
+		cur_y += 75;
+		ticker++;
+	}
+	delete[] tiles;
 }
 
 void MapGui::place_units() {
