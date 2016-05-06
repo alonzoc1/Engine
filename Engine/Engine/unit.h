@@ -28,6 +28,7 @@ public:
 	float get_percent_health() { return (cur_hp / max_hp); }
 	int get_max_health() { return max_hp; }
 	int get_faction() { return faction; }
+	char * get_sprite_path() { return sprite_path; }
 	//end gets
 
 	//sets

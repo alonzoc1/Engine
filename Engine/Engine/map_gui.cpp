@@ -13,10 +13,16 @@ MapGui::MapGui(Map m_in, EventManager em_in, int res_x, int res_y, int camx, int
 }
 
 MapGui::~MapGui() {
-	EventManager b;
-	em = b;
+	for (vector<ALLEGRO_BITMAP*>::iterator it = bitmaps.begin(); it != bitmaps.end(); ++it) {
+		al_destroy_bitmap(*it);
+	}
 }
 
+void MapGui::drop_at_coords(int x, int y, ALLEGRO_BITMAP * what) {
+	int res_x = (x-1) * tile_width;
+	int res_y = (y-1) * tile_width;
+	al_draw_bitmap(what, res_x, res_y, 0);
+}
 int MapGui::display_map(int thick) {
 	fill_tiles();
 	draw_grid(thick);
@@ -42,14 +48,14 @@ void MapGui::draw_grid(int thick) {
 	while ((ticker <= show_y) && (ticker <= max_y)) {
 		al_draw_line(0, cur_y, (temp*tile_width), cur_y, al_map_rgb(128, 128, 128), thick);
 		ticker++;
-		cur_y += 75;
+		cur_y += tile_width;
 	}
 	ticker = cam_x;
-	cur_y -= 75;
+	cur_y -= tile_width;
 	while ((ticker <= show_x) && (ticker <= max_x)) {
 		al_draw_line(cur_x, 0, cur_x, (cur_y), al_map_rgb(128,128,128), thick);
 		ticker++;
-		cur_x += 75;
+		cur_x += tile_width;
 	}
 }
 
@@ -82,17 +88,19 @@ void MapGui::fill_tiles() {
 				switch (tile_id) {
 				case 1:
 					tiles[tile_id - 1] = al_load_bitmap("tiles/grass.png");
+					bitmaps.push_back(tiles[tile_id - 1]);
 					break;
 				case 2:
 					tiles[tile_id - 1] = al_load_bitmap("tiles/mountain.png");
+					bitmaps.push_back(tiles[tile_id - 1]);
 					break;
 				}
 			}
 			al_draw_bitmap(tiles[tile_id-1],cur_x, cur_y,0);
-			cur_x += 75;
+			cur_x += tile_width;
 			ticker2++;
 		}
-		cur_y += 75;
+		cur_y += tile_width;
 		cur_x = cam_x;
 		ticker++;
 	}
@@ -100,7 +108,11 @@ void MapGui::fill_tiles() {
 }
 
 void MapGui::place_units() {
-
+	for (vector<Map::UnitCoords>:: iterator it = m.units.begin() ; it != m.units.end(); ++it){
+		printf("sprite_path is %s, coords are [%i, %i]\n", it->u.get_sprite_path(), it->x, it->y);
+		bitmaps.push_back(al_load_bitmap(it->u.get_sprite_path()));
+		drop_at_coords(it->x, it->y, bitmaps.back());
+	}
 	al_flip_display(); //place_units is last step, so it updates display
 }
 

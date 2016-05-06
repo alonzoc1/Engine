@@ -4,12 +4,14 @@
 #include "event_manager.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <vector>
 
 class MapGui {
 private:
 	Map m;
 	EventManager em;
-
+	vector<ALLEGRO_BITMAP*> bitmaps;
+	void drop_at_coords(int x, int y, ALLEGRO_BITMAP * what);
 	void add_unit();
 	void remove_unit();
 	void move_unit();

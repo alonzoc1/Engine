@@ -16,6 +16,10 @@ private:
 	//	Unit u;
 	//};
 	//struct has a bug with VisualStudio, I'll use class
+	int map_width;
+	int map_height; //map dimensions
+	vector<vector<int>> tiles;
+public:
 	class UnitCoords {
 	public:
 		int x;
@@ -27,11 +31,7 @@ private:
 			u = unit;
 		}
 	};
-	int map_width;
-	int map_height; //map dimensions
-	vector<vector<int>> tiles;
 	vector<UnitCoords> units;
-public:
 	int map_x() { return map_width; }
 	int map_y() { return map_height; }
 	vector<int> get_row_number(int i) { return tiles[i]; }

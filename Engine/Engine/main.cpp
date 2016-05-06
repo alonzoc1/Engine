@@ -143,9 +143,11 @@ int main(int argc, char ** argv){
 		zombie.set_cur_health(8);
 		zombie.set_max_health(22);
 		zombie.set_faction(1);
-		alonzo.set_sprite_path("path/alonzo.png");
-		alonzo.set_sprite_path("path/zombie.png");
+		alonzo.set_sprite_path("sprites/alonzo.png");
+		zombie.set_sprite_path("sprites/zombie.png");
 		Map map("test_1.map");
+		map.add_unit(alonzo, 3, 5);
+		map.add_unit(zombie, 6, 2);
 		MapGui map_gui(map, em2, width, height, 0, 0);
 		map_gui.display_map(2);
 		al_destroy_timer(timer2);
