@@ -70,20 +70,21 @@ void MapGui::fill_tiles() {
 		temp = show_x;
 	else
 		temp = max_x;
-	while ((ticker <= show_y) && (ticker <= max_y)) {
+	while ((ticker < show_y) && (ticker < max_y)) {
 		int ticker2 = cam_y;
 		printf("ticker = %i\n", ticker);//DEBUG
 		vector<int> row = m.get_row_number(ticker);
-		while ((ticker2 <= show_x) && (ticker <= max_x)) {
+		while ((ticker2 < show_x) && (ticker2 < max_x)) {
 			printf("ticker2 = %i\n", ticker2);//DEBUG
 			int tile_id = row[ticker2];
-			if (tiles[tile_id - 1] == NULL) { //initialize tile
+			printf("--tile_id = %i\n", tile_id);//DEBUG
+			if (tiles[tile_id - 1] == NULL) { //initialize tile if its not
 				switch (tile_id) {
 				case 1:
 					tiles[tile_id - 1] = al_load_bitmap("tiles/grass.png");
 					break;
-				case2:
-					tiles[tile_id - 1] = al_load_bitmap("tiles/mountaint.png");
+				case 2:
+					tiles[tile_id - 1] = al_load_bitmap("tiles/mountain.png");
 					break;
 				}
 			}
@@ -92,6 +93,7 @@ void MapGui::fill_tiles() {
 			ticker2++;
 		}
 		cur_y += 75;
+		cur_x = cam_x;
 		ticker++;
 	}
 	delete[] tiles;
