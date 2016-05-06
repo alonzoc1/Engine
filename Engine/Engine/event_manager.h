@@ -5,7 +5,7 @@
 
 class EventManager {
 public:
-	ALLEGRO_EVENT_QUEUE * event_queue = NULL;
+	ALLEGRO_EVENT_QUEUE ** event_queue = NULL;
 
 	EventManager(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display);
 	EventManager();

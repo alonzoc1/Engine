@@ -49,7 +49,7 @@ int main(int argc, char ** argv){
 	al_start_timer(timer);
 	while (!selected) {
 		ALLEGRO_EVENT ev;
-		al_wait_for_event(em.event_queue, &ev);
+		al_wait_for_event(*(em.event_queue), &ev);
 
 		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
 			break;
@@ -122,17 +122,17 @@ int main(int argc, char ** argv){
 		}
 
 		
-		if (redraw && al_is_event_queue_empty(em.event_queue)) {
+		if (redraw && al_is_event_queue_empty(*(em.event_queue))) {
 			redraw = false;
 			mm.draw_main_menu(selection);
 		}
 	}
-	em.~EventManager();
+
 	al_destroy_timer(timer);
-	ALLEGRO_TIMER * timer2 = al_create_timer(1 / FPS);
-	EventManager em2(timer2, disp.get_display());
 	//Now you have a selction value
 	if (selection == 1) {
+		ALLEGRO_TIMER * timer2 = al_create_timer(1 / FPS);
+		EventManager em2(timer2, disp.get_display());
 		//start a new game
 		//for now, the plan is to open a hard coded map scenario
 		Unit alonzo(1, "Alonzo"); //temporary unit
@@ -148,7 +148,7 @@ int main(int argc, char ** argv){
 		Map map("test_1.map");
 		MapGui map_gui(map, em2, width, height, 0, 0);
 		map_gui.display_map(2);
-
+		al_destroy_timer(timer2);
 	}
 	if (selection == 2) {
 		//load a save file
