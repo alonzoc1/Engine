@@ -145,6 +145,10 @@ int main(int argc, char ** argv){
 		zombie.set_faction(1);
 		alonzo.set_sprite_path("sprites/alonzo.png");
 		zombie.set_sprite_path("sprites/zombie.png");
+		alonzo.set_max_mov(4);
+		zombie.set_max_mov(4);
+		alonzo.set_cur_mov(3);
+		zombie.set_cur_mov(4);
 		Map map("test_1.map");
 		map.add_unit(alonzo, 3, 5);
 		map.add_unit(zombie, 6, 2);

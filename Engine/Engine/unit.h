@@ -12,10 +12,12 @@ private:
 	//Unit permanent stats
 	char * job;
 	int max_hp;
+	int max_mov;
 	//End unit stats
 
 	//Unit current stats
 	int cur_hp;
+	int cur_mov;
 	//End unit current stats
 
 	//Unit misc data
@@ -46,6 +48,8 @@ public:
 			return 0;
 	}
 	void set_sprite_path(char * path) { sprite_path = path; }
+	void set_max_mov(int m) { max_mov = m; }
+	void set_cur_mov(int m) { cur_mov = m; }
 	//end sets
 
 	Unit(int id, char * name) {
