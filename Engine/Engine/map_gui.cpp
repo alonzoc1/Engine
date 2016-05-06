@@ -11,12 +11,16 @@ MapGui::MapGui(Map m_in, EventManager em_in, int res_x, int res_y, int camx, int
 	cam_y = camy;
 }
 
-//MapGui::~MapGui() {}
+MapGui::~MapGui() {
+	EventManager b;
+	em = b;
+}
 
 int MapGui::display_map(int thick) {
 	draw_grid(thick);
 	fill_tiles();
 	place_units();
+	return 1;
 }
 
 void MapGui::start_game() {
@@ -32,10 +36,13 @@ void MapGui::draw_grid(int thick) {
 	while (ticker <= show_x) {
 		al_draw_line(cur_x, 0, cur_x, (show_y*tile_width), al_map_rgb(128,128,128), thick);
 		ticker++;
+		cur_x += 75;
 	}
 	ticker = 0;
 	while (ticker <= show_y) {
 		al_draw_line(0, cur_y, (show_x*tile_width), cur_y, al_map_rgb(128, 128, 128), thick);
+		ticker++;
+		cur_y += 75;
 	}
 }
 
@@ -45,6 +52,7 @@ void MapGui::fill_tiles() {
 
 void MapGui::place_units() {
 
+	al_flip_display(); //place_units is last step, so it updates display
 }
 
 void MapGui::move_unit() {

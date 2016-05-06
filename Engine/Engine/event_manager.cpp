@@ -9,7 +9,13 @@ EventManager::EventManager(ALLEGRO_TIMER * timer, ALLEGRO_DISPLAY * display) {
 }
 
 EventManager::~EventManager() {
-	al_destroy_event_queue(event_queue);
+	if (event_queue != NULL) {
+
+		al_destroy_event_queue(event_queue);
+		event_queue = NULL;
+	}
 }
 
-EventManager::EventManager(){}
+EventManager::EventManager(){
+	event_queue = NULL;
+}

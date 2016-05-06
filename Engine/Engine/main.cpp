@@ -3,6 +3,7 @@
 #include "map.h"
 #include "event_manager.h"
 #include "unit.h"
+#include "map_gui.h"
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
@@ -126,6 +127,10 @@ int main(int argc, char ** argv){
 			mm.draw_main_menu(selection);
 		}
 	}
+	em.~EventManager();
+	al_destroy_timer(timer);
+	ALLEGRO_TIMER * timer2 = al_create_timer(1 / FPS);
+	EventManager em2(timer2, disp.get_display());
 	//Now you have a selction value
 	if (selection == 1) {
 		//start a new game
@@ -138,13 +143,16 @@ int main(int argc, char ** argv){
 		zombie.set_cur_health(8);
 		zombie.set_max_health(22);
 		zombie.set_faction(1);
-
+		alonzo.set_sprite_path("path/alonzo.png");
+		alonzo.set_sprite_path("path/zombie.png");
+		Map map("test_1.map");
+		MapGui map_gui(map, em2, width, height, 0, 0);
+		map_gui.display_map(2);
 
 	}
 	if (selection == 2) {
 		//load a save file
 		selection = (selection + 1 - 1); //pass for now
 	}
-	al_destroy_timer(timer);
 	return 0;
 }

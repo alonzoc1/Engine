@@ -26,7 +26,7 @@ private:
 	int cam_y;
 public:
 	MapGui(Map m_in, EventManager em_in, int res_x, int res_y, int camx, int camy);
-	//~MapGui();
+	~MapGui();
 	int display_map(int thick); //returns 1 if success, 0 otherwise
 	void start_game();
 };
