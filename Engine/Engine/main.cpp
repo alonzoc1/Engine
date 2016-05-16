@@ -155,6 +155,11 @@ int main(int argc, char ** argv){
 		MapGui map_gui(map, em2, width, height, 0, 0);
 		map_gui.display_map(2);
 		bool redraw = false;
+		if (em.usable == false) { //check event manager is ok
+			al_show_native_message_box(disp.get_display(), "ERROR", "EVENT MANAGER ERROR", "EventManager.usable set to false, EM was destructed",
+				NULL, ALLEGRO_MESSAGEBOX_ERROR);
+			return 1; //fail
+		}
 		while (true) {
 			ALLEGRO_EVENT ev2;
 			al_wait_for_event(*(em.event_queue), &ev2);
@@ -162,7 +167,7 @@ int main(int argc, char ** argv){
 				break;
 			if (redraw == true)
 				disp.refresh_display();
-			//add any other events to come
+			//add any other events to come, set redraw to true if screen should change
 		}
 		al_destroy_timer(timer2);
 		al_destroy_timer(timer);

@@ -27,6 +27,7 @@
     <ClCompile Include="screen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="action_box.h" />
     <ClInclude Include="event_manager.h" />
     <ClInclude Include="main_menu.h" />
     <ClInclude Include="map.h" />
