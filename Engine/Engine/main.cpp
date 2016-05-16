@@ -128,7 +128,7 @@ int main(int argc, char ** argv){
 		}
 	}
 
-	al_destroy_timer(timer);
+	//al_destroy_timer(timer); //try to reuse
 	//Now you have a selction value
 	if (selection == 1) {
 		ALLEGRO_TIMER * timer2 = al_create_timer(1 / FPS);
@@ -154,8 +154,18 @@ int main(int argc, char ** argv){
 		map.add_unit(zombie, 6, 2);
 		MapGui map_gui(map, em2, width, height, 0, 0);
 		map_gui.display_map(2);
+		bool redraw = false;
+		while (true) {
+			ALLEGRO_EVENT ev2;
+			al_wait_for_event(*(em.event_queue), &ev2);
+			if (ev2.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+				break;
+			if (redraw == true)
+				disp.refresh_display();
+			//add any other events to come
+		}
 		al_destroy_timer(timer2);
-		al_rest(10);
+		al_destroy_timer(timer);
 	}
 	if (selection == 2) {
 		//load a save file
